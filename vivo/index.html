@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Seguimiento en vivo · SafeGo</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Mira en el mapa cómo avanza el viaje, la hora de llegada y si pide ayuda.">
+<meta property="og:title" content="Seguimiento en vivo · SafeGo">
+<meta property="og:description" content="Abre el enlace y mira en el mapa cómo avanza el viaje. No hace falta instalar nada.">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/logo-mark.png">
+<link rel="stylesheet" href="lib/leaflet.css">
+<style>
+  :root { --bg:#faf5f3; --card:#ffffff; --ink:#2a1d21; --muted:#766168; --primary:#B3303F; --ok:#1F8A4C; --warn:#C77A12; --line:#eadfe0; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1d1518; --card:#2a1f23; --ink:#f6eef0; --muted:#b9a7ac; --line:#3d3035; } }
+  :root[data-theme="dark"] { --bg:#1d1518; --card:#2a1f23; --ink:#f6eef0; --muted:#b9a7ac; --line:#3d3035; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { display:flex; align-items:center; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line); }
+  header img { width:34px; height:34px; border-radius:10px; background:#fff; padding:2px; }
+  header b { font-size:18px; }
+  #map { height: 52vh; min-height: 260px; width:100%; }
+  .panel { padding:14px 16px 24px; }
+  .row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .sub { color:var(--muted); font-size:14px; }
+  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:700; background:#eee; color:#333; }
+  .pill.ok { background:#dff3e8; color:var(--ok); } .pill.warn { background:#fbeedb; color:var(--warn); } .pill.sos { background:var(--primary); color:#fff; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-top:10px; }
+  .big { font-size:24px; font-weight:800; margin:0; }
+  .alert { border-left:4px solid var(--primary); }
+  .me-dot { width:20px; height:20px; border-radius:50%; background:#2B6CE6; border:3px solid #fff; box-shadow:0 0 0 6px rgba(43,108,230,.25); }
+  .me-dot.sos { background:var(--primary); }
+  .note { font-size:13px; color:var(--muted); margin-top:14px; }
+  .empty { text-align:center; padding:24px 8px; }
+  button { font:inherit; border:0; border-radius:12px; padding:10px 14px; background:var(--primary); color:#fff; font-weight:700; cursor:pointer; }
+  button.light { background:var(--card); color:var(--ink); border:1px solid var(--line); }
+</style>
+</head>
+<body>
+<header>
+  <img src="img/logo-mark.png" alt="">
+  <b>Seguimiento en vivo</b>
+</header>
+<div id="map"></div>
+<div class="panel" id="panel">
+  <div class="empty sub">Cargando…</div>
+</div>
+<script src="lib/leaflet.js"></script>
+<script>
+(function () {
+  'use strict';
+  var POLL_MS = 10000;
+  var STALE_MS = 3 * 60000;
+  var HOST = 'https://ntfy.sh/';
+  var map = L.map('map', { zoomControl: true }).setView([-0.2050, -78.4950], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+  var layer = L.layerGroup().addTo(map);
+  var panel = document.getElementById('panel');
+  var state = { ch: null, key: null, name: '', points: [], last: null, fitted: false, error: null, busy: false };
+
+  /* ---------- Código: el enlace trae TSV1:<base64 de {n,t,k}> en la parte final (#) ---------- */
+  function parseCode(text) {
+    var m = String(text || '').match(/TSV1:([A-Za-z0-9+/=_-]+)/);
+    if (!m) return null;
+    var b64 = m[1].replace(/-/g, '+').replace(/_/g, '/');
+    while (b64.length % 4) b64 += '=';
+    var d = JSON.parse(decodeURIComponent(escape(atob(b64))));
+    if (!d || d.v !== 1 || !/^[A-Za-z0-9_-]{8,64}$/.test(d.t) || !/^[A-Za-z0-9_-]{43}$/.test(d.k)) return null;
+    return { name: String(d.n || 'Estudiante').slice(0, 40), topic: d.t, key: d.k };
+  }
+
+  /* ---------- Descifrado AES-GCM (mismo formato que la app: "TS1." + base64(iv[12] + ciphertext+tag)) ---------- */
+  function b64urlToBytes(s) {
+    var b = s.replace(/-/g, '+').replace(/_/g, '/');
+    while (b.length % 4) b += '=';
+    var bin = atob(b), out = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  var keyPromise = null;
+  function cryptoKey() {
+    if (!keyPromise) keyPromise = crypto.subtle.importKey('raw', b64urlToBytes(state.key), { name: 'AES-GCM' }, false, ['decrypt']);
+    return keyPromise;
+  }
+  function decrypt(msg) {
+    if (!msg || msg.indexOf('TS1.') !== 0) return Promise.reject(new Error('formato'));
+    var all = Uint8Array.from(atob(msg.slice(4)), function (c) { return c.charCodeAt(0); });
+    return cryptoKey().then(function (k) {
+      return crypto.subtle.decrypt({ name: 'AES-GCM', iv: all.slice(0, 12) }, k, all.slice(12));
+    }).then(function (buf) { return JSON.parse(new TextDecoder().decode(buf)); });
+  }
+
+  /* ---------- Sondeo de ntfy.sh (CORS abierto) ---------- */
+  function poll() {
+    if (!state.ch || state.busy) return;
+    state.busy = true;
+    var since = state.last || '3h';
+    fetch(HOST + state.ch + '/json?poll=1&since=' + encodeURIComponent(since))
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.text(); })
+      .then(function (txt) {
+        var lines = txt.split('\n').filter(Boolean).map(function (l) { try { return JSON.parse(l); } catch (e) { return null; } })
+          .filter(function (m) { return m && m.event === 'message'; });
+        state.last = lines.length ? lines[lines.length - 1].id : state.last;
+        return Promise.all(lines.map(function (m) {
+          return decrypt(m.message).then(function (p) { p.rt = m.time * 1000; return p; }, function () { return null; });
+        }));
+      })
+      .then(function (pts) {
+        state.error = null;
+        pts.forEach(function (p) {
+          if (!p || !isFinite(p.lat) || !isFinite(p.lon)) return;
+          if (state.points.some(function (q) { return q.sent === p.sent && q.st === p.st; })) return;
+          state.points.push(p);
+        });
+        state.points.sort(function (a, b) { return (a.sent || a.rt) - (b.sent || b.rt); });
+        if (state.points.length > 600) state.points = state.points.slice(-600);
+        draw();
+      })
+      .catch(function (e) { state.error = e.message || 'red'; draw(); })
+      .then(function () { state.busy = false; });
+  }
+
+  /* ---------- Viaje más reciente ---------- */
+  function trail() {
+    var p = state.points, start = 0;
+    for (var i = p.length - 2; i >= 0; i--) if (/^(fin|llego)/.test(p[i].st)) { start = i + 1; break; }
+    return p.slice(start);
+  }
+  function hhmm(t) { return new Date(t).toLocaleTimeString('es-EC', { hour: '2-digit', minute: '2-digit' }); }
+  function ago(t) {
+    var s = Math.max(0, Math.round((Date.now() - t) / 1000));
+    if (s < 60) return 'hace ' + s + ' s';
+    if (s < 3600) return 'hace ' + Math.round(s / 60) + ' min';
+    return 'a las ' + hhmm(t);
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var STATES = { metro: ['ok', 'En el Metro (sin señal)'], viaje: ['ok', 'En camino'], tarde: ['warn', 'Con retraso'], sos: ['sos', 'SOS'], llego: ['ok', 'Llegó'], llego_manual: ['ok', 'Llegó'], fin: ['', 'Viaje terminado'] };
+
+  function draw() {
+    layer.clearLayers();
+    var tr = trail(), cur = tr[tr.length - 1];
+    if (cur) {
+      var ll = tr.map(function (p) { return [p.lat, p.lon]; });
+      if (ll.length > 1) L.polyline(ll, { color: '#2B6CE6', weight: 5, opacity: 0.75 }).addTo(layer);
+      if (isFinite(cur.dlat)) L.marker([cur.dlat, cur.dlon]).bindTooltip(esc(cur.dest || 'Destino')).addTo(layer);
+      L.circle([cur.lat, cur.lon], { radius: Math.max(10, cur.acc || 30), color: '#2B6CE6', weight: 1, fillOpacity: 0.1 }).addTo(layer);
+      L.marker([cur.lat, cur.lon], { icon: L.divIcon({ className: '', html: '<div class="me-dot' + (cur.st === 'sos' ? ' sos' : '') + '"></div>', iconSize: [20, 20], iconAnchor: [10, 10] }) }).addTo(layer);
+      if (!state.fitted) {
+        var b = ll.slice(); if (isFinite(cur.dlat)) b.push([cur.dlat, cur.dlon]);
+        if (b.length > 1) map.fitBounds(b, { padding: [40, 40], maxZoom: 16 }); else map.setView(ll[0], 16);
+        state.fitted = true;
+      } else map.panTo([cur.lat, cur.lon]);
+    }
+    panel.innerHTML = panelHtml(cur);
+    var c = document.getElementById('center');
+    if (c) c.onclick = function () { if (cur) map.setView([cur.lat, cur.lon], 16); };
+  }
+
+  function panelHtml(cur) {
+    var name = esc(state.name);
+    if (state.error) return '<div class="card"><b>Sin conexión</b><p class="sub">Reintentamos solos cada 10 segundos.</p></div>';
+    if (!cur) return '<div class="empty"><h3 style="margin:0 0 6px">' + name + '</h3><p class="sub">Todavía no hay un viaje activo. Cuando inicie un viaje, verás cómo avanza aquí.</p></div>';
+    var t = cur.sent || cur.rt, st = STATES[cur.st] || STATES.viaje;
+    var stale = (cur.st === 'viaje' || cur.st === 'tarde') && Date.now() - t > STALE_MS;
+    var dist = isFinite(cur.dlat) ? distKm(cur, { lat: cur.dlat, lon: cur.dlon }) : null;
+    var h = '<div class="row"><div><h3 style="margin:0">' + name + '</h3><div class="sub">Actualizado ' + ago(t) + (cur.acc ? ' · ±' + Math.round(cur.acc) + ' m' : '') + '</div></div>' +
+      '<span class="pill ' + st[0] + '">' + st[1] + '</span></div>';
+    if (cur.st === 'sos') h += '<div class="card alert"><b>Pidió ayuda (SOS) a las ' + hhmm(t) + '</b><p class="sub">Llama al 911 si no te responde.</p><a href="tel:911"><button>Llamar al 911</button></a></div>';
+    if (stale) h += '<div class="card"><b>Sin señal desde las ' + hhmm(t) + '</b><p class="sub">Puede estar en el Metro (bajo tierra no hay GPS) o sin datos móviles. Se actualiza solo cuando vuelva la señal.</p></div>';
+    h += '<div class="card">';
+    if (cur.dest) h += '<div><b>' + esc(cur.dest) + '</b></div>';
+    if (/^llego/.test(cur.st)) h += '<div class="sub">Llegó a las ' + hhmm(t) + '</div>';
+    else {
+      var bits = [];
+      if (cur.eta) bits.push('Llegada estimada ' + hhmm(cur.eta));
+      if (dist !== null) bits.push('faltan ' + dist.toFixed(1) + ' km en línea recta');
+      if (bits.length) h += '<div class="sub">' + bits.join(' · ') + '</div>';
+    }
+    if (cur.spd) h += '<div class="sub">Velocidad aproximada: ' + cur.spd + ' km/h</div>';
+    h += '</div>';
+    h += '<div class="row" style="margin-top:12px"><button class="light" id="center">Centrar en ' + name + '</button>' +
+      '<a href="https://www.openstreetmap.org/?mlat=' + cur.lat + '&mlon=' + cur.lon + '#map=17/' + cur.lat + '/' + cur.lon + '"><button class="light">Abrir en OpenStreetMap</button></a></div>';
+    h += '<p class="note">La ubicación viaja cifrada. Esta página no guarda nada; cierra el enlace cuando quieras. Los datos se borran solos de ntfy.sh a las pocas horas.</p>';
+    return h;
+  }
+  function distKm(a, b) {
+    var R = 6371, toR = Math.PI / 180;
+    var dLat = (b.lat - a.lat) * toR, dLon = (b.lon - a.lon) * toR;
+    var s = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a.lat * toR) * Math.cos(b.lat * toR) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return 2 * R * Math.atan2(Math.sqrt(s), Math.sqrt(1 - s));
+  }
+
+  /* ---------- Arranque ---------- */
+  function start() {
+    var h = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    var ch = null;
+    try { ch = parseCode(h); } catch (e) { ch = null; }
+    if (!ch) {
+      panel.innerHTML = '<div class="empty"><h3 style="margin:0 0 6px">Enlace no válido</h3><p class="sub">Pide a tu familiar que te envíe de nuevo el enlace desde su app de SafeGo.</p></div>';
+      return;
+    }
+    state.ch = ch.topic; state.key = ch.key; state.name = ch.name;
+    draw();
+    poll();
+    setInterval(function () { if (!document.hidden) poll(); }, POLL_MS);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) poll(); });
+  }
+  if (!window.crypto || !crypto.subtle) {
+    panel.innerHTML = '<div class="empty"><h3 style="margin:0 0 6px">Navegador no compatible</h3><p class="sub">Abre el enlace en Chrome, Safari o Firefox actualizados.</p></div>';
+  } else start();
+})();
+</script>
+</body>
+</html>

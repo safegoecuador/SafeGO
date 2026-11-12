@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidad · SafeGo</title>
+<style>
+  :root { --ink:#392126; --muted:#766168; --paper:#faf4f2; --primary:#b3303f; --line:#ead8d6; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:32px 18px 60px; }
+  h1 { font-size:30px; line-height:1.2; margin:0 0 6px; }
+  h2 { font-size:20px; margin:30px 0 8px; color:var(--primary); }
+  p, li { color:var(--ink); }
+  .sub { color:var(--muted); font-size:14px; }
+  .box { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-top:16px; }
+  a { color:var(--primary); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Política de privacidad de SafeGo</h1>
+  <p class="sub">Vigente desde el 12 de noviembre de 2026 · App Android SafeGo (ec.safego.app) · Quito, Ecuador</p>
+
+  <div class="box"><b>En pocas palabras:</b> SafeGo avisa a la familia por SMS cuando el estudiante sube al transporte, hace un transbordo, está por bajar, está cerca de su destino, llega o se retrasa, y al iniciar cada viaje le envía el enlace para seguirlo en vivo. Solo funciona durante el viaje, no tiene cuentas ni servidores propios y guarda los datos solo en el teléfono.</div>
+
+  <h2>1. Quién es responsable</h2>
+  <p>SafeGo es un proyecto estudiantil de Fernando Caicedo, Esteban Caicedo, Anthony Rosero y Esteban García, en la Pontificia Universidad Católica del Ecuador. Para cualquier consulta sobre tus datos, escríbenos por el repositorio público del proyecto: <a href="https://github.com/juanfercaicedo/TransporteSeguro/issues">github.com/juanfercaicedo/TransporteSeguro</a>.</p>
+
+  <h2>2. Qué datos usa la app</h2>
+  <ul>
+    <li><b>Ubicación del teléfono:</b> solo mientras hay un viaje que el estudiante inició, para saber cuándo sube, hace transbordo y llega. Fuera de un viaje no se usa.</li>
+    <li><b>Contactos de confianza:</b> nombre y número de las personas que recibirán los avisos. Los escribe el usuario; la app no lee la agenda del teléfono.</li>
+    <li><b>Lugares guardados e historial de viajes:</b> por ejemplo, casa y colegio, y la hora de salida y de llegada de cada viaje.</li>
+  </ul>
+
+  <h2>3. Para qué los usa</h2>
+  <ul>
+    <li>Enviar por SMS, desde el propio teléfono, los avisos de subida, transbordo, llegada, retraso y SOS a los contactos de confianza.</li>
+    <li>Mostrar la ruta y avisar al estudiante antes de bajar.</li>
+    <li>Compartir el seguimiento en vivo con la familia durante cada viaje: al iniciarlo, la familia recibe por SMS un enlace para verlo en el mapa. El estudiante puede apagarlo en Familia.</li>
+  </ul>
+  <p>No vendemos ni compartimos datos con terceros con fines comerciales. No hay publicidad.</p>
+
+  <h2>4. Dónde se guardan y por cuánto tiempo</h2>
+  <ul>
+    <li>Todo se guarda solo en el teléfono. SafeGo no tiene cuentas ni servidores propios, y la copia de seguridad automática de Android está desactivada para esta app.</li>
+    <li>El historial de viajes se borra solo pasado el plazo que elija el usuario (30 días de forma predeterminada).</li>
+    <li>Durante el seguimiento en vivo, cada punto viaja cifrado de extremo a extremo (AES-GCM) por el servicio libre ntfy.sh, que lo borra a las pocas horas. Solo la familia tiene la clave; ntfy.sh no puede leerlo.</li>
+    <li>Los SMS los envía el operador móvil del teléfono, como cualquier mensaje de texto.</li>
+  </ul>
+
+  <h2>5. Menores de edad y consentimiento</h2>
+  <p>La ubicación de una persona menor de edad es un dato sensible según la Ley Orgánica de Protección de Datos Personales del Ecuador. Por eso los avisos automáticos solo se activan si el estudiante acepta en su propio teléfono y, si es menor de 18 años, con la autorización de su madre, padre o representante. El consentimiento se puede retirar en cualquier momento desde Más › Ajustes.</p>
+
+  <h2>6. Servicios externos</h2>
+  <ul>
+    <li>Mapas de OpenStreetMap, búsqueda de direcciones de Nominatim y rutas a pie de OSRM: reciben las coordenadas que se consultan en el mapa, sin datos personales.</li>
+    <li>ntfy.sh: durante el seguimiento en vivo, siempre con datos cifrados.</li>
+  </ul>
+
+  <h2>7. Tus derechos</h2>
+  <p>Puedes ver, corregir y borrar tus datos en cualquier momento desde la app: Más › Privacidad y datos › «Borrar todos mis datos». Desinstalar la app también borra todo. Para ejercer tus derechos de acceso, rectificación, eliminación u oposición, escríbenos por el enlace del punto 1.</p>
+
+  <h2>8. Cambios</h2>
+  <p>Si cambiamos esta política, actualizaremos la fecha de arriba y avisaremos en la app.</p>
+</main>
+</body>
+</html>

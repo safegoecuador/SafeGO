@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#FAF4F2">
+  <title>SafeGo</title>
+  <link rel="stylesheet" href="lib/leaflet.css">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <button id="backBtn" class="icon-btn hidden" aria-label="Volver"></button>
+      <div class="brand"><img class="logo-img" src="img/logo-mark.png" alt="" width="34" height="34"><span id="title">SafeGo</span></div>
+      <button id="sosTop" class="sos-mini" aria-label="SOS">SOS</button>
+    </header>
+    <main id="view"></main>
+    <div id="mapWrap" class="hidden"><div id="map"></div></div>
+    <nav id="tabs">
+      <button data-tab="home" class="tab active"><i data-ic="home"></i><span>Inicio</span></button>
+      <button data-tab="plan" class="tab"><i data-ic="route"></i><span>Rutas</span></button>
+      <button data-tab="trip" class="tab"><i data-ic="nav"></i><span>Viaje</span></button>
+      <button data-tab="family" class="tab"><i data-ic="users"></i><span>Familia</span></button>
+      <button data-tab="more" class="tab"><i data-ic="menu"></i><span>Más</span></button>
+    </nav>
+  </div>
+  <div id="sheet" class="sheet hidden" role="dialog" aria-modal="true"><div class="sheet-card"><div id="sheetBody"></div></div></div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  <div id="sosOverlay" class="sos-overlay hidden">
+    <div class="sos-box">
+      <div class="sos-title">Emergencia</div>
+      <p id="sosText">Se enviará tu ubicación a tus contactos de confianza.</p>
+      <div class="sos-count" id="sosCount">3</div>
+      <button class="btn btn-light" id="sosCancel">Cancelar</button>
+    </div>
+  </div>
+  <script src="lib/leaflet.js"></script>
+  <script src="data.js"></script>
+  <script src="stops-osm.js"></script>
+  <script src="planner.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

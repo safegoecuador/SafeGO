@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SafeGo</string>
+    <string name="err_no_app">No hay una app para abrir este enlace</string>
+    <string name="err_gps_off">Activa la ubicación del teléfono</string>
+    <string name="err_trip_data">datos del viaje inválidos</string>
+    <string name="err_no_location_perm">falta el permiso de ubicación</string>
+    <string name="share_with">Compartir con</string>
+    <string name="err_share">No se pudo compartir</string>
+    <string name="err_dialer">No se pudo abrir el marcador</string>
+    <string name="n_get_ready">Prepárate para bajar</string>
+    <string name="a_whatsapp">Avisar por WhatsApp</string>
+    <string name="n_board_tap_whatsapp" formatted="true">%1$s. Toca «Avisar por WhatsApp» para avisar a tu familia.</string>
+    <string name="n_board_sent" formatted="true">%1$s. Tu familia ya recibió el aviso.</string>
+    <string name="no_location">(ubicación no disponible)</string>
+    <string name="n_arrived_sms">Tu familia ya recibió el aviso por SMS.</string>
+    <string name="n_arrived_tap">Toca para avisar a tu familia por WhatsApp.</string>
+    <string name="n_arrived_title" formatted="true">Llegaste a %1$s</string>
+    <string name="n_late_sms">Avisamos a tu familia con tu última ubicación. Si estás bien, avísales desde la app.</string>
+    <string name="n_late_ask">Ya pasó tu hora de llegada. ¿Todo bien? Avisa a tu familia desde la app.</string>
+    <string name="n_late_title">Vas con retraso</string>
+    <string name="n_timeout_title">Seguimiento detenido</string>
+    <string name="n_timeout_body">El viaje lleva mucho tiempo abierto y lo detuvimos para cuidar tu batería.</string>
+    <string name="sos_default">EMERGENCIA: necesito ayuda. Ubicación: {link} (precisión {precision} m) a las {hora}. (SafeGo)</string>
+    <string name="a_call_911">Llamar al 911</string>
+    <string name="n_sos_sent">SOS enviado</string>
+    <string name="n_sos_failed">SOS: no se pudo enviar el SMS</string>
+    <string name="n_sos_sent_body">Tus contactos recibieron tu ubicación.</string>
+    <string name="n_sos_failed_body">Abre la app para enviarlo por WhatsApp o llama al 911.</string>
+    <string name="n_trip_title" formatted="true">Viaje a %1$s</string>
+    <string name="n_trip_eta" formatted="true">Llegada estimada %1$s</string>
+    <string name="n_trip_on_way">En camino</string>
+    <string name="a_arrived">Llegué</string>
+    <string name="a_sos">SOS</string>
+    <string name="a_stop">Terminar</string>
+    <string name="n_metro">En el Metro, sin señal GPS: seguimos al salir</string>
+    <string name="n_late_short">con retraso</string>
+    <string name="n_remaining" formatted="true">faltan %1$s</string>
+    <string name="ch_trip">Viaje en curso</string>
+    <string name="ch_trip_desc">Seguimiento mientras viajas</string>
+    <string name="ch_alert">Avisos de transbordo y llegada</string>
+    <string name="ch_alert_desc">Te avisa antes de bajar, al llegar y si hay retraso</string>
+    <string name="ch_quiet">Avisos discretos (solo vibración)</string>
+    <string name="ch_quiet_desc">Modo discreto: vibra sin sonido</string>
+</resources>
