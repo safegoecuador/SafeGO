@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#faf4f2">SafeGO
-  <meta name="description" content=" explora cómo acompañar a estudiantes de Unidades Educativas o Instituciones Universitarias de Quito que viajan solos y combinan varios transportes.">
-  <title>SafeGO | Movilidad estudiantil en Quito</title>
+  <meta name="theme-color" content="#faf4f2">
+  <meta name="description" content="SafeGo avisa a la familia cuando el estudiante llega a clases en Quito, sin que tengas que parar tu trabajo para llamar.">
+  <title>SafeGo | Aviso de llegada para estudiantes en Quito</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,15 +15,16 @@
 <body>
   <header class="topbar navbar navbar-expand-md">
     <div class="topbar-inner">
-      <a class="brand" href="#inicio" aria-label="SafeGO, inicio"><span class="brand-mark" aria-hidden="true"SGS</span>SafeGO</a>
+      <a class="brand" href="#inicio" aria-label="SafeGo, inicio"><span class="brand-mark" aria-hidden="true">SG</span>SafeGo</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primary-navigation" aria-controls="primary-navigation" aria-expanded="false" aria-label="Abrir menú">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="primary-navigation">
       <nav class="nav-links navbar-nav" aria-label="Navegación principal">
-        <a class="nav-link" href="#investigacion">La investigación</a>
-        <a class="nav-link" href="#familias">Para familias</a>
+        <a class="nav-link" href="#problema">Problema</a>
+        <a class="nav-link" href="#pagadores">Quién paga</a>
+        <a class="nav-link" href="#propuesta">Propuesta de valor</a>
         <a class="nav-link nav-cta" href="#lista">Participa</a>
       </nav>
     </div>
@@ -34,13 +35,13 @@
       <img class="hero-photo" src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=2200&q=85" alt="Autobús de pasajeros preparado para iniciar un recorrido" fetchpriority="high">
       <div class="hero-inner">
         <div class="hero-content">
-          <span class="eyebrow">Movilidad estudiantil · Quito</span>
-          <h1 id="hero-title"><span>Transporte</span><span>Seguro</span></h1>
-          <p class="hero-copy">¿Tu hijo viaja solo y combina varios transportes para llegar a una Unidad Educativa Fiscal? Queremos entender cómo acompañar ese trayecto sin que tengas que interrumpir tu jornada para saber dónde está.</p>
+          <span class="eyebrow">Aviso de llegada · Quito</span>
+          <h1 id="hero-title"><span>Safe</span><span>Go</span></h1>
+          <p class="hero-copy">Tu hijo viaja solo en bus a clases. SafeGo planifica el viaje y avisa a la familia cuando llega, para que no tengas que parar tu trabajo a llamar.</p>
           <div class="hero-actions">
             <a class="button button-light" href="src/html/app-index.html" target="_blank" rel="noopener">Probar demo interactiva <span aria-hidden="true">↗</span></a>
-            <a class="button button-light" href="#lista">Quiero contar mi experiencia</a>
-            <a class="text-link" href="#investigacion">Qué queremos validar</a>
+            <a class="button button-light" href="#lista">Quiero participar</a>
+            <a class="text-link" href="#problema">Ver la problemática</a>
           </div>
           <p class="hero-demo-note">Prototipo interactivo · recorrido y ubicación simulados</p>
         </div>
@@ -50,7 +51,7 @@
             <div class="phone">
               <div class="phone-screen">
                 <div class="phone-status"><span>9:41</span><span aria-hidden="true">● ● ●</span></div>
-                <div class="app-topline"><span class="app-brand">SafeGO</span><span class="app-avatar" aria-hidden="true">M</span></div>
+                <div class="app-topline"><span class="app-brand">SafeGo</span><span class="app-avatar" aria-hidden="true">M</span></div>
                 <div class="phone-panel" id="phone-panel" role="tabpanel" aria-labelledby="phone-tab-route" aria-live="polite" data-screen="route">
                   <p class="app-greeting">Buenos días, María</p>
                   <h2 class="app-title">El viaje de Mateo</h2>
@@ -143,7 +144,7 @@
       <p>Estamos explorando cómo acompañan los representantes a estudiantes de Unidades Educativas o Instituciones Universitarias en Quito que viajan solos y combinan más de dos unidades de transporte.</p>
     </section>
 
-    <section class="benefits" aria-label="Beneficios de SafeGO>
+    <section class="benefits" aria-label="Beneficios de SafeGo">
       <article class="benefit">
         <span class="benefit-index">01 / RUTAS</span>
         <h3>Más de dos unidades</h3>
@@ -159,6 +160,55 @@
         <h3>Horarios por WhatsApp</h3>
         <p>¿Ya tienen momentos pactados para enviarse un mensaje y confirmar que todo va bien?</p>
       </article>
+    </section>
+
+    <section class="story" id="problema" aria-labelledby="problema-title">
+      <div class="story-inner">
+        <div class="story-head">
+          <span class="section-kicker">La problemática</span>
+          <h2 id="problema-title">Para saber si llegó, hay que parar el trabajo y llamar.</h2>
+          <p>Muchos estudiantes de colegios fiscales y de universidad en Quito viajan solos y combinan más de un transporte entre casa y clase. Las familias no tienen cómo saber que llegaron bien, y terminan llamando o escribiendo en plena jornada.</p>
+        </div>
+        <div class="story-grid">
+          <div class="story-card"><span class="story-stat">78 %</span><p>de los 40 encuestados sufre al cambiar de transporte: esperar, caminar entre paradas o aglomeración.</p></div>
+          <div class="story-card"><span class="story-stat">25 %</span><p>evita sacar el celular en la calle por miedo a un robo, así que no puede avisar que llegó.</p></div>
+          <div class="story-card"><span class="story-stat">18 %</span><p>ya comparte su ubicación a mano, por llamada o por WhatsApp.</p></div>
+          <div class="story-card"><span class="story-stat">9 de 40</span><p>terminan pagando taxi o Uber cuando algo falló en el viaje.</p></div>
+        </div>
+        <p class="story-note">Encuesta propia a 40 personas en Quito. Que las familias interrumpan su trabajo tres veces por semana sigue siendo una hipótesis que estamos validando.</p>
+      </div>
+    </section>
+
+    <section class="story story-alt" id="pagadores" aria-labelledby="pagadores-title">
+      <div class="story-inner">
+        <div class="story-head">
+          <span class="section-kicker">Quién paga</span>
+          <h2 id="pagadores-title">La familia paga; el estudiante la usa gratis.</h2>
+          <p>Quien siente la preocupación es quien paga. Por eso el cliente principal es la madre, el padre o el representante, y los colegios son un segundo camino de ingreso.</p>
+        </div>
+        <div class="story-grid story-grid-3">
+          <div class="story-card story-card-dark"><span class="kicker-light">Pagador principal</span><span class="story-stat">$2,99</span><p>al mes por familia (precio tentativo). Incluye el aviso de llegada y el mapa en vivo.</p></div>
+          <div class="story-card"><span class="kicker-dark">Usuario</span><h3>Estudiante</h3><p>Usa la app gratis. Registra su viaje y, al llegar, el aviso sale solo.</p></div>
+          <div class="story-card"><span class="kicker-dark">Segundo camino</span><h3>Colegios</h3><p>Convenios con unidades educativas como Fe y Alegría, para ofrecer SafeGo a sus familias.</p></div>
+        </div>
+        <p class="story-note">Los precios y convenios son una propuesta en validación con representantes de Quito.</p>
+      </div>
+    </section>
+
+    <section class="story" id="propuesta" aria-labelledby="propuesta-title">
+      <div class="story-inner">
+        <div class="story-head">
+          <span class="section-kicker">Propuesta de valor</span>
+          <h2 id="propuesta-title">Tu hijo llega a clases y tú lo sabes, sin parar tu trabajo para llamar.</h2>
+          <p>SafeGo planifica el viaje con buses, Trolebús y Metro de Quito, y avisa a la familia en cada paso importante.</p>
+        </div>
+        <div class="story-grid story-grid-3">
+          <div class="story-card"><span class="story-num">1</span><h3>Registra el viaje</h3><p>El estudiante elige origen y colegio y ve la ruta con paradas reales de bus, Trolebús y Metro.</p></div>
+          <div class="story-card"><span class="story-num">2</span><h3>Detecta la llegada</h3><p>Al llegar al colegio, la app lo detecta sola. Si falla, el estudiante la confirma con un toque.</p></div>
+          <div class="story-card"><span class="story-num">3</span><h3>Avisa a la familia</h3><p>Llega un SMS al celular de la familia, con el mapa en vivo opcional. Sin WhatsApp manual ni llamadas.</p></div>
+        </div>
+        <p class="story-note story-privacy"><strong>Privacidad de menores:</strong> solo se detecta la llegada, no se guardan recorridos y todo se comparte con autorización del representante.</p>
+      </div>
     </section>
 
     <section class="research-section" id="investigacion" aria-labelledby="research-title">
@@ -180,7 +230,7 @@
       <div class="route-copy">
         <span class="section-kicker">Una idea en desarrollo · Quito</span>
         <h2 id="route-title">Acompañar el trayecto, incluso cuando hay transbordos.</h2>
-        <p>SafeGO explora cómo reunir opciones de bus, Trolebús y Metro, junto con avisos de llegada para la familia. Para sugerir rutas reales se necesitarían datos actualizados de movilidad y seguridad de Quito.</p>
+        <p>SafeGo explora cómo reunir opciones de bus, Trolebús y Metro, junto con avisos de llegada para la familia. Para sugerir rutas reales se necesitarían datos actualizados de movilidad y seguridad de Quito.</p>
       </div>
       <div class="route-demo" aria-label="Vista ilustrativa de medios de transporte público en Quito">
         <div class="route-heading"><strong>Opciones para tu recorrido</strong><span class="live-tag">QUITO</span></div>
@@ -233,9 +283,9 @@
   </main>
 
   <footer>
-    <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">SG</span>SafeGO</a>
+    <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">SG</span>SafeGo</a>
     <span>Una idea para llegar con más tranquilidad.</span>
-    <span>© 2026 TransporteSeguro</span>
+    <span>© 2026 SafeGo</span>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

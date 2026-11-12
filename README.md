@@ -1,8 +1,8 @@
-# TransporteSeguro
+# SafeGo
 
 Prototipo interactivo para acompañar los viajes de estudiantes que utilizan el transporte público en Quito.
 
-**Demo:** [Abrir TransporteSeguro en GitHub Pages](http://juanfercaicedo.github.io/TransporteSeguro/)
+**Demo:** [Abrir SafeGo en GitHub Pages](http://juanfercaicedo.github.io/TransporteSeguro/)
 
 ## Problema
 
@@ -14,7 +14,7 @@ Explorar una herramienta que ayude a estudiantes y familias a organizar y acompa
 
 ## Equipo
 
-Proyecto TransporteSeguro. Responsable del repositorio: **Juan Fernando Caicedo Escobar**. Los integrantes adicionales del equipo son: **Juan Esteban Caicedo, Esteban García y Anthony Rosero**.
+Proyecto SafeGo (antes TransporteSeguro). Responsable del repositorio: **Juan Fernando Caicedo Escobar**. Los integrantes adicionales del equipo son: **Juan Esteban Caicedo, Esteban García y Anthony Rosero**.
 
 ## Tecnologías
 
