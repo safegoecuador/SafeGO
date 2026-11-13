@@ -7,10 +7,10 @@
 
 ## Probar y descargar
 
-- [Abrir el sitio de SafeGo](https://juanfercaicedo.github.io/TransporteSeguro/)
-- [Probar la demo web](https://juanfercaicedo.github.io/TransporteSeguro/src/html/app-index.html)
-- [Descargar el APK para Android](https://juanfercaicedo.github.io/TransporteSeguro/apkApp/SafeGo.apk)
-- [Consultar la política de privacidad](https://juanfercaicedo.github.io/TransporteSeguro/privacidad/)
+- [Abrir el sitio de SafeGo](https://juanfercaicedo.github.io/SafeGO/)
+- [Probar la demo web](https://juanfercaicedo.github.io/SafeGO/src/html/app-index.html)
+- [Descargar el APK para Android](https://juanfercaicedo.github.io/SafeGO/apkApp/SafeGo.apk)
+- [Consultar la política de privacidad](https://juanfercaicedo.github.io/SafeGO/privacidad/)
 - [Ver notas de la versión 2.0.0](docs/RELEASE_NOTES_v2.0.0.md)
 - [Ver la guía de la aplicación Android](android/README.md)
 

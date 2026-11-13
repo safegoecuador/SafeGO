@@ -41,7 +41,7 @@ Datos técnicos: identificador `ec.safego.app` (no se puede cambiar después de 
 - **Categoría:** Mapas y navegación. **Correo de contacto:** el del equipo.
 
 ## 4. Contenido de la app (formularios obligatorios)
-- **Política de privacidad:** `https://juanfercaicedo.github.io/TransporteSeguro/privacidad/` (está en la carpeta `privacidad/`; se publica con la landing).
+- **Política de privacidad:** `https://juanfercaicedo.github.io/SafeGO/privacidad/` (está en la carpeta `privacidad/`; se publica con la landing).
 - **Público objetivo:** marquen 13 a 15, 16 a 17 y 18 o más. Si marcan menores de 13, se aplica la política de Familias, que es mucho más estricta.
 - **Seguridad de los datos:** declaren *Ubicación precisa* y *Ubicación aproximada* (funcionalidad de la app, se comparte con la familia durante el viaje, cifrada en tránsito, el usuario puede apagarla y borrarla) y *Contactos: nombre y teléfono* (los escribe el usuario, se guardan en el teléfono). No hay publicidad ni datos vendidos.
 - **Servicio en primer plano:** declaren el tipo *location*: «Sigue el viaje que el estudiante inicia para avisar a su familia al subir, al hacer transbordo y al llegar». Google suele pedir un video corto (30 s) que lo muestre: usen la Demostración y un viaje real.

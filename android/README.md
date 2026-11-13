@@ -17,7 +17,7 @@
 - **Pruebas reales** (Más › Pruebas reales): por cada viaje guarda si la llegada se detectó sola, cuántos avisos salieron, si llegó a tiempo, cuánta batería gastó y si pasó por el Metro sin GPS. «Compartir resultados» exporta un resumen y una tabla.
 - **Privacidad de menores (LOPDP)**: pantalla «Privacidad y datos», consentimiento que pide la autorización del representante si el estudiante es menor de 18 años, historial que se borra solo (30 días por defecto), botón para borrar todo y copia de seguridad de Android desactivada. Política pública en `privacidad/index.html`.
 - **Lista para Google Play**: apunta a Android 16 (targetSdk 36), con diseño de borde a borde y gesto «atrás» predictivo. Además del APK se genera `SafeGo.aab` (Android App Bundle) firmado con la llave de subida. Ver `GOOGLE_PLAY.md`.
-- La página del mapa en vivo pasa al repositorio del equipo: `https://juanfercaicedo.github.io/TransporteSeguro/vivo/`.
+- La página del mapa en vivo pasa al repositorio del equipo: `https://juanfercaicedo.github.io/SafeGO/vivo/`.
 
 ## Qué hace
 - **Planificador sin conexión** con 40 líneas: Metro, Trolebús (51 paradas, circuitos C1–C6), Ecovía (Río Coca – Marín – Guamaní, circuitos E1, E1-M, E2, E3), Metrobús / Corredor Central Norte, Corredor Sur Occidental, alimentadores (LB, RE, MV, MG) y buses urbanos e interparroquiales que conectan con el Metro, los valles (Cumbayá, Tumbaco, Los Chillos, Conocoto) y el aeropuerto.
@@ -33,7 +33,7 @@
 - La clave viaja solo dentro del enlace o código que comparte el estudiante (código de configuración `TS1:` de la familia o seguimiento `TSV1:`). ntfy.sh no puede leer la ubicación.
 - Solo se publica durante un viaje iniciado por el estudiante (y un punto al enviar SOS).
 - «Cambiar código» en Familia genera una clave nueva: quien tenía la anterior deja de ver la ubicación.
-- **Enlace de WhatsApp**: apunta a la página de la carpeta `viewer/` publicada en GitHub Pages (`https://juanfercaicedo.github.io/TransporteSeguro/vivo/#TSV1:…`). La clave va después del `#`, que el navegador nunca envía al servidor. La app solo ofrece el enlace si comprueba que la página está publicada (pide `ok.json`); si no, comparte el código para pegar en la app.
+- **Enlace de WhatsApp**: apunta a la página de la carpeta `viewer/` publicada en GitHub Pages (`https://juanfercaicedo.github.io/SafeGO/vivo/#TSV1:…`). La clave va después del `#`, que el navegador nunca envía al servidor. La app solo ofrece el enlace si comprueba que la página está publicada (pide `ok.json`); si no, comparte el código para pegar en la app.
 - La familia necesita la app (rol Familia) abierta en «Ver en vivo» para recibir las notificaciones de llegada y SOS en su teléfono. En el navegador ve el mapa mientras tenga la pestaña abierta. Con la app cerrada, la familia sigue recibiendo los SMS.
 - Quien reciba el enlace puede verte: si lo reenvían a alguien que no debe, usa «Cambiar código».
 
@@ -83,4 +83,4 @@ GOOGLE_PLAY.md        pasos y textos para publicar
 Créditos: mapas © colaboradores de OpenStreetMap (ODbL), Leaflet (BSD-2), Nominatim, OSRM/FOSSGIS, ntfy (Apache-2.0/GPL-2.0).
 
 ## Paradas de bus (v1.3.0)
-`app/assets/www/stops-osm.js` trae 2.382 paradas reales de bus de Quito (OpenStreetMap, ODbL) tomadas de `src/json/busStop.json` del repositorio juanfercaicedo/TransporteSeguro (duplicados de plataforma y posición eliminados). Se ven al activar la capa de red en el mapa de Rutas (desde el zoom 15), salen en el buscador de lugares y dan el nombre «Cerca de la parada…» al tocar el mapa. Ese archivo solo trae puntos, sin líneas ni recorridos: los recorridos siguen siendo los de `data.js`.
+`app/assets/www/stops-osm.js` trae 2.382 paradas reales de bus de Quito (OpenStreetMap, ODbL) tomadas de `src/json/busStop.json` del repositorio juanfercaicedo/SafeGO (duplicados de plataforma y posición eliminados). Se ven al activar la capa de red en el mapa de Rutas (desde el zoom 15), salen en el buscador de lugares y dan el nombre «Cerca de la parada…» al tocar el mapa. Ese archivo solo trae puntos, sin líneas ni recorridos: los recorridos siguen siendo los de `data.js`.

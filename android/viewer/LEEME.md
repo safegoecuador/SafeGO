@@ -8,8 +8,8 @@ Página estática que la familia abre desde un enlace de WhatsApp para ver el ma
 - `ok.json` lo usa la app para comprobar que la página está publicada antes de ofrecer el enlace.
 
 ## Publicación
-Se publica en el repositorio del equipo `juanfercaicedo/TransporteSeguro`, carpeta `vivo/`, con el mismo flujo de GitHub Pages de la landing:
-`https://juanfercaicedo.github.io/TransporteSeguro/vivo/`
+Se publica en el repositorio del equipo `juanfercaicedo/SafeGO`, carpeta `vivo/`, con el mismo flujo de GitHub Pages de la landing:
+`https://juanfercaicedo.github.io/SafeGO/vivo/`
 
 Si cambia la dirección, hay que cambiar `TS_VIEWER_URL` en `app/web-src/00-base.js` y el dominio en `ALLOWED_HOSTS` de `MainActivity.java`, y recompilar.
 

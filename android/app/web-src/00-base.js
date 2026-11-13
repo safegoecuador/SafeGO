@@ -13,7 +13,7 @@
   var VERSION = '2.0.0';
   // Página de seguimiento que abre la familia desde WhatsApp (GitHub Pages, carpeta viewer/ del proyecto).
   // La app solo la ofrece cuando comprueba que está publicada; si no, comparte el código para pegar en la app.
-  var TS_VIEWER_URL = 'https://juanfercaicedo.github.io/TransporteSeguro/vivo/';
+  var TS_VIEWER_URL = 'https://juanfercaicedo.github.io/SafeGO/vivo/';
 
   /* ---------------- Iconos (trazos propios, estilo línea) ---------------- */
   var PATHS = {
