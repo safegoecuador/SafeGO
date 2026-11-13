@@ -1,43 +1,92 @@
 # SafeGo
 
-Prototipo interactivo para acompañar los viajes de estudiantes que utilizan el transporte público en Quito.
+**Llegó bien. Sin llamadas.** SafeGo es un prototipo para ayudar a estudiantes y sus familias a planificar y acompañar viajes en transporte público en Quito.
 
-**Demo:** [Abrir SafeGo en GitHub Pages](http://juanfercaicedo.github.io/TransporteSeguro/)
+> **Versión:** 2.0.0
+> **Estado:** prototipo en desarrollo; revisa las limitaciones antes de usarlo en un viaje real.
 
-## Problema
+## Probar y descargar
 
-Los padres de familia se preocupan por la seguridad de sus hijos cuando estos se trasladan en transporte público. Para confirmar que llegaron a salvo a sus destinos, algunos deben interrumpir su jornada laboral al menos tres veces por semana. Esto dificulta tanto el trabajo de las familias como el seguimiento del viaje de los estudiantes.
+- [Abrir el sitio de SafeGo](https://juanfercaicedo.github.io/TransporteSeguro/)
+- [Probar la demo web](https://juanfercaicedo.github.io/TransporteSeguro/src/html/app-index.html)
+- [Descargar el APK para Android](https://juanfercaicedo.github.io/TransporteSeguro/apkApp/SafeGo.apk)
+- [Consultar la política de privacidad](https://juanfercaicedo.github.io/TransporteSeguro/privacidad/)
+- [Ver notas de la versión 2.0.0](docs/RELEASE_NOTES_v2.0.0.md)
+- [Ver la guía de la aplicación Android](android/README.md)
 
-## Objetivo
+La aplicación Android requiere Android 8.0 o posterior. Instala el APK manualmente y permite la instalación desde esa fuente cuando Android lo solicite. La descarga directa no equivale a una publicación en Google Play.
 
-Explorar una herramienta que ayude a estudiantes y familias a organizar y acompañar sus recorridos. La vista del estudiante permite consultar opciones de transporte público y compartir su ubicación desde el mismo navegador; la vista familiar muestra la información compartida.
+## Funcionalidades
+
+- Planificador local de viajes en transporte público de Quito, con alternativas multimodales e indicaciones de líneas, direcciones y transbordos.
+- Mapa basado en OpenStreetMap con búsqueda de lugares, rutas a pie y paradas.
+- Seguimiento de viajes y ubicación compartida cifrada durante un viaje iniciado por el estudiante.
+- Avisos a la familia por SMS, además de alertas de llegada, retraso y SOS.
+- Consentimiento, controles para detener el seguimiento y herramientas para borrar los datos locales.
+- Demo web para explorar la experiencia sin instalar la aplicación.
+
+La versión Android integra la experiencia principal. La demo web y el APK son prototipos: sus datos de rutas, tiempos y ubicaciones no deben considerarse información oficial ni garantía de seguridad.
+
+## Compilar y probar Android
+
+La compilación documentada utiliza Ubuntu y herramientas como OpenJDK 21, `aapt2`, `zipalign`, `apksigner`, Node.js y `bundletool`; no requiere Gradle ni Android Studio. Desde la carpeta `android/`:
+
+```bash
+bash build.sh
+```
+
+Para compilar una versión firmada, configura `KS_FILE` y `KS_PASS` con una llave de subida que guardes fuera del repositorio. `bash build.sh --nueva-llave` genera una llave temporal solo para pruebas; no la uses para publicar actualizaciones.
+
+Las pruebas del planificador se ejecutan durante la compilación. También pueden lanzarse desde la raíz con:
+
+```bash
+node --test android/tests/planner.test.js
+```
+
+Consulta [android/README.md](android/README.md) para los requisitos detallados, la instalación y la guía de compilación. Para publicar en Google Play, revisa [android/GOOGLE_PLAY.md](android/GOOGLE_PLAY.md), en particular las restricciones aplicables al permiso de SMS.
+
+## Privacidad y limitaciones
+
+- No hay cuentas ni servidor propio que sincronice perfiles; parte de la información se conserva localmente en el teléfono.
+- El seguimiento en vivo transmite puntos cifrados mediante el servicio público ntfy.sh. Comparte el enlace o código únicamente con personas de confianza; quien lo obtenga puede ver la ubicación mientras el canal siga activo.
+- La app necesita permisos de ubicación, notificaciones o SMS para las funciones correspondientes. El estudiante puede detener el uso compartido.
+- Las coordenadas de las paradas son aproximadas y los recorridos y tiempos pueden cambiar. Confirma la línea y el destino con fuentes oficiales antes de viajar.
+- La app aún requiere pruebas en teléfonos reales y en condiciones de viaje. No debe usarse como sustituto de la supervisión, los servicios de emergencia ni la información oficial de transporte.
+- Google Play restringe el permiso `SEND_SMS`; su aprobación no está garantizada. Revisa la guía de publicación antes de distribuir la app.
+
+Lee la [política de privacidad](privacidad/index.html) y la sección de limitaciones de [android/README.md](android/README.md) antes de probar el seguimiento.
+
+## Tecnologías y datos
+
+- Java y WebView para la aplicación Android; HTML, CSS y JavaScript para las interfaces.
+- OpenStreetMap y Leaflet para mapas; Nominatim para búsqueda y OSRM/FOSSGIS para rutas peatonales.
+- Datos de transporte compilados en `android/app/assets/www/data.js`; el propio archivo documenta las fuentes. Los puntos de parada se basan en OpenStreetMap.
+- GitHub Pages y GitHub Actions para publicar el sitio.
+
+Los mapas y servicios externos conservan sus propios términos y licencias. Para los créditos y las fuentes de transporte, consulta [android/README.md](android/README.md).
+
+## Estructura del repositorio
+
+```text
+android/       Aplicación Android, código web integrado, compilación y pruebas
+apkApp/        APK disponible para descarga
+docs/          Notas de versión y documentación de prompts de IA
+privacidad/    Política de privacidad pública
+src/           Sitio, demo web y código de la versión web
+vivo/          Visor web de seguimiento en vivo
+.github/       Flujo de publicación de GitHub Pages
+LICENSE        Licencia MIT
+USO_IA.md      Declaración del uso de herramientas de IA
+```
 
 ## Equipo
 
-Proyecto SafeGo (antes TransporteSeguro). Responsable del repositorio: **Juan Fernando Caicedo Escobar**. Los integrantes adicionales del equipo son: **Juan Esteban Caicedo, Esteban García y Anthony Rosero**.
+Proyecto SafeGo, anteriormente TransporteSeguro. Responsable del repositorio: **Juan Fernando Caicedo Escobar**. Equipo: **Juan Esteban Caicedo, Esteban García y Anthony Rosero**.
 
-## Tecnologías
+## Uso de inteligencia artificial
 
-- **HTML5** para la estructura de la landing y las vistas de la aplicación.
-- **CSS3** para los estilos adaptables y la presentación de las vistas en formato móvil.
-- **JavaScript (ES modules)** para la lógica organizada en `src/models`, `src/views`, `src/controllers`, `src/services` y `src/config`.
-- **Bootstrap 5.3.7** para componentes de navegación de la landing.
-- **Google Maps Platform** (Maps JavaScript API, Places y Directions) para sugerir direcciones y consultar rutas de transporte público cuando se configura una clave válida.
-- **Leaflet 1.9.4 y OpenStreetMap** para el mapa alternativo y la visualización de las paradas cuando Google Maps no está disponible.
-- **GeoJSON** para el catálogo de 2.448 paradas almacenado en [`src/json/busStop.json`](src/json/busStop.json).
-- **Web Storage y Geolocation APIs** del navegador para conservar perfiles y el último viaje en el dispositivo y, con permiso explícito, compartir la ubicación.
-- **GitHub Pages y GitHub Actions** para publicar el prototipo.
+El equipo indicó que se utilizó IA en el proyecto. El alcance y las herramientas de etapas anteriores deben completarse con la información del equipo. Esta actualización de documentación registra el uso de Copilot SDK en VS Code; consulta [USO_IA.md](USO_IA.md) y el prompt guardado en [docs/prompts/documentacion-y-release.md](docs/prompts/documentacion-y-release.md).
 
-## Funcionalidades del prototipo
+## Licencia
 
-- Landing page con acceso a la demo interactiva.
-- Vista estudiante para ingresar origen y destino, comparar alternativas de transporte público y consultar indicaciones cuando Google Maps está habilitado.
-- Mapa de Quito con las paradas de bus como puntos verdes interactivos; al seleccionar un punto se muestra su nombre y tipo.
-- Vista familiar para consultar el último viaje y la ubicación que se compartió desde el mismo navegador.
-- Perfiles locales de estudiantes y controles para iniciar o pausar el uso compartido de ubicación.
-
-## Alcance y limitaciones
-
-Este prototipo no tiene backend, inicio de sesión, sincronización entre dispositivos ni notificaciones reales. Los perfiles y el último viaje se almacenan en el navegador; para que las vistas compartan esa información, deben abrirse en el mismo dispositivo, navegador y origen. La ubicación solo se solicita cuando el estudiante pulsa el botón para compartir.
-
-El catálogo GeoJSON permite ubicar paradas, pero no contiene recorridos completos, secuencias de paradas, horarios ni servicios por línea. Para calcular rutas propias de la aplicación hace falta integrar datos estructurados de transporte, como GTFS. Sin una clave válida de Google Maps, el mapa alternativo puede mostrar las paradas, pero el cálculo integrado de alternativas no está disponible; se puede abrir la búsqueda en Google Maps.
+Este proyecto se distribuye bajo la licencia [MIT](LICENSE). Las bibliotecas, mapas y servicios de terceros mantienen sus propias licencias y condiciones.
