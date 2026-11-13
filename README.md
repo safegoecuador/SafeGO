@@ -7,10 +7,10 @@
 
 ## Probar y descargar
 
-- [Abrir el sitio de SafeGo](https://juanfercaicedo.github.io/SafeGO/)
-- [Probar la demo web](https://juanfercaicedo.github.io/SafeGO/src/html/app-index.html)
-- [Descargar el APK para Android](https://juanfercaicedo.github.io/SafeGO/apkApp/SafeGo.apk)
-- [Consultar la política de privacidad](https://juanfercaicedo.github.io/SafeGO/privacidad/)
+- [Abrir el sitio de SafeGo](https://safegoecuador.github.io/SafeGO/)
+- [Probar la demo web](https://safegoecuador.github.io/SafeGO/src/html/app-index.html)
+- [Descargar el APK para Android](https://safegoecuador.github.io/SafeGO/apkApp/SafeGo.apk)
+- [Consultar la política de privacidad](https://safegoecuador.github.io/SafeGO/privacidad/)
 - [Ver notas de la versión 2.0.0](docs/RELEASE_NOTES_v2.0.0.md)
 - [Ver la guía de la aplicación Android](android/README.md)
 

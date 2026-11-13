@@ -60,7 +60,7 @@
   };
 
   /* ---------------- Privacidad de menores (LOPDP) ---------------- */
-  var PRIVACY_URL = 'https://juanfercaicedo.github.io/SafeGO/privacidad/';
+  var PRIVACY_URL = 'https://safegoecuador.github.io/SafeGO/privacidad/';
   VIEWS.privacy = {
     sub: true,
     title: function () { return 'Privacidad y datos'; },

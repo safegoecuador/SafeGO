@@ -14,7 +14,7 @@
   var VERSION = '2.0.0';
   // Página de seguimiento que abre la familia desde WhatsApp (GitHub Pages, carpeta viewer/ del proyecto).
   // La app solo la ofrece cuando comprueba que está publicada; si no, comparte el código para pegar en la app.
-  var TS_VIEWER_URL = 'https://juanfercaicedo.github.io/SafeGO/vivo/';
+  var TS_VIEWER_URL = 'https://safegoecuador.github.io/SafeGO/vivo/';
 
   /* ---------------- Iconos (trazos propios, estilo línea) ---------------- */
   var PATHS = {
@@ -3020,7 +3020,7 @@
   };
 
   /* ---------------- Privacidad de menores (LOPDP) ---------------- */
-  var PRIVACY_URL = 'https://juanfercaicedo.github.io/SafeGO/privacidad/';
+  var PRIVACY_URL = 'https://safegoecuador.github.io/SafeGO/privacidad/';
   VIEWS.privacy = {
     sub: true,
     title: function () { return 'Privacidad y datos'; },
