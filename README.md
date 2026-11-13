@@ -79,9 +79,9 @@ LICENSE        Licencia MIT
 USO_IA.md      Declaración del uso de herramientas de IA
 ```
 
-## Equipo
+## Qué hace la app (SafeGo 2.0.0)
 
-Proyecto SafeGo, anteriormente TransporteSeguro. Responsable del repositorio: **Juan Fernando Caicedo Escobar**. Equipo: **Juan Esteban Caicedo, Esteban García y Anthony Rosero**.
+Proyecto SafeGo, anteriormente TransporteSeguro. Responsable del repositorio: **Equipo SafeGO**. Equipo: **Juan Fernando Caicedo, Juan Esteban Caicedo, Esteban García y Anthony Rosero**.
 
 ## Uso de inteligencia artificial
 
